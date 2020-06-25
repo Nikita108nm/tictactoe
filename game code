@@ -8,11 +8,10 @@ def display_board(myboard):
     print('_|_|_')
     print(myboard[1] + '|' + myboard[2] + '|' + myboard[3])
     print(' | | ')
-
 #for getting the marker
 def inputmarker():
     player1_marker = ' '
-    player1_marker = ' '
+    player1_marker = ' '             
     while player1_marker not in 'XO':
         player1_marker = input('Player 1, choose marker:')
         if player1_marker == 'X':
@@ -20,48 +19,46 @@ def inputmarker():
         else:
             player2_marker = 'X'
     return player1_marker,player2_marker
-
-def playgame(n,player1_marker,player2_marker,myboard):
+def playgame(n,player1_marker,player2_marker,myboard):         #gameplay
     if n%2 == 0:
         temp = int(input('Player 2, enter the position of marker:'))
         myboard[temp] = player2_marker
     else:
         temp = int(input('Player 1, enter the position of marker:'))
         myboard[temp] = player1_marker
-
-def checkwinforp(symbol, myboard):
-        if (myboard[1] == myboard[2] == myboard[3] == symbol) or \
-                (myboard[4] == myboard[5] == myboard[6] == symbol) or \
-                (myboard[7] == myboard[8] == myboard[9] == symbol) or \
-                (myboard[1] == myboard[4] == myboard[7] == symbol) or \
-                (myboard[2] == myboard[5] == myboard[8] == symbol) or \
-                (myboard[3] == myboard[6] == myboard[9] == symbol) or \
-                (myboard[1] == myboard[5] == myboard[9] == symbol) or \
-                (myboard[3] == myboard[5] == myboard[7] == symbol):
+def checkwinforp(symbol,myboard):                                          #wining condition
+        if(myboard[1] == myboard[2] == myboard[3] == symbol) or \
+        (myboard[4] == myboard[5] == myboard[6] == symbol) or \
+        (myboard[7] == myboard[8] == myboard[9] == symbol) or \
+        (myboard[1] == myboard[4] == myboard[7] == symbol) or \
+        (myboard[2] == myboard[5] == myboard[8] == symbol) or \
+        (myboard[3] == myboard[6] == myboard[9] == symbol) or \
+        (myboard[1] == myboard[5] == myboard[9] == symbol) or \
+        (myboard[3] == myboard[5] == myboard[7] == symbol):
             return True
         else:
             return False
-
-def checktie(myboard):
-    if myboard[1:] == ' ':
+def checktie(myboard):                            #tie check
+    count = 0
+    for a in range(1,10):
+        if myboard[a] == "X" or myboard[a] == "O":
+            count += 1
+    if count == 9:
+        print("The game ends in a Tie\n")
         return True
-
-def clearboard(myboard):
-    myboard=[' ']*10
-
-
-def qask():
+    return False
+def qask():                                 #to ask if user wants to play again
     wish = input('Do you want to play this game?')
     if wish == 'YES' or wish == 'yes':
-
+       
         return True
     else:
         print('Thank you')
         return False
 
-myboard=[' ']*10
 well=True
-if well==True:
+while well==True:
+    myboard=[' ']*10 
     symbol1,symbol2 = inputmarker()
     index=1
     while index < 100:
@@ -74,7 +71,6 @@ if well==True:
             print('player 2, won the game')
             break
         elif checktie(myboard)==True:
-            print('match tie')
             break
         index+=1
     well=qask()
